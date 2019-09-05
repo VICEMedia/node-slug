@@ -22,26 +22,26 @@ bower install slug
 ## example
 
 ```javascript
-var slug = require('slug')
-var print = console.log.bind(console, '>')
+var slug = require("slug");
+var print = console.log.bind(console, ">");
 
-print(slug('i ♥ unicode'))
+print(slug("i ♥ unicode"));
 // > i-love-unicode
 
-print(slug('unicode ♥ is ☢')) // yes!
+print(slug("unicode ♥ is ☢")); // yes!
 // > unicode-love-is-radioactive
 
-print(slug('i ♥ unicode', '_')) // If you prefer something else then `-` as seperator
+print(slug("i ♥ unicode", "_")); // If you prefer something else then `-` as seperator
 // > i_love_unicode
 
-slug.charmap['♥'] = 'freaking love' // change default charmap or use option {charmap:{…}} as 2. argument
-print(slug('I ♥ UNICODE'))
+slug.charmap["♥"] = "freaking love"; // change default charmap or use option {charmap:{…}} as 2. argument
+print(slug("I ♥ UNICODE"));
 // > I-freaking-love-UNICODE
 
-print(slug('☏-Number', {lower: true})) // If you prefer lower case
+print(slug("☏-Number", { lower: true })); // If you prefer lower case
 // > telephone-number
 
-print(slug('i <3 unicode'))
+print(slug("i <3 unicode"));
 // > i-love-unicode
 ```
 
@@ -49,32 +49,40 @@ print(slug('i <3 unicode'))
 
 ```javascript
 // options is either object or replacement (sets options.replacement)
-slug('string', [{options} || 'replacement']);
+slug("string", [{ options } || "replacement"]);
+```
+
+## VICE Update
+
+```javascript
+// use options.allowed to pass an array of allowed character ranges
+slug("테스트 소프트웨어", { allowed: [/[\uac00-\ud7af]/] }); //allows korean
 ```
 
 ```javascript
-slug.defaults.mode ='pretty';
-slug.defaults.modes['rfc3986'] = {
-    replacement: '-',      // replace spaces with replacement
-    symbols: true,         // replace unicode symbols or not
-    remove: null,          // (optional) regex to remove characters
-    lower: true,           // result in lower case
-    charmap: slug.charmap, // replace special characters
-    multicharmap: slug.multicharmap // replace multi-characters
+slug.defaults.mode = "pretty";
+slug.defaults.modes["rfc3986"] = {
+  replacement: "-", // replace spaces with replacement
+  symbols: true, // replace unicode symbols or not
+  remove: null, // (optional) regex to remove characters
+  lower: true, // result in lower case
+  charmap: slug.charmap, // replace special characters
+  multicharmap: slug.multicharmap // replace multi-characters
 };
-slug.defaults.modes['pretty'] = {
-    replacement: '-',
-    symbols: true,
-    remove: /[.]/g,
-    lower: false,
-    charmap: slug.charmap,
-    multicharmap: slug.multicharmap
+slug.defaults.modes["pretty"] = {
+  replacement: "-",
+  symbols: true,
+  remove: /[.]/g,
+  lower: false,
+  charmap: slug.charmap,
+  multicharmap: slug.multicharmap
 };
 ```
 
 ## browser
 
 When using browserify you might want to remove the symbols table from your bundle by using `--ignore` similar to this:
+
 ```bash
 # generates a standalone slug browser bundle:
 browserify slug.js --ignore unicode/category/So -s slug > slug-browser.js
@@ -83,4 +91,3 @@ browserify slug.js --ignore unicode/category/So -s slug > slug-browser.js
 [![Build Status](https://secure.travis-ci.org/dodo/node-slug.png)](http://travis-ci.org/dodo/node-slug)
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/dodo/node-slug/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
